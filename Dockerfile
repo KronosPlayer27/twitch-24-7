@@ -1,10 +1,12 @@
-FROM ubuntu:22.04
+FROM jrottenberg/ffmpeg:4.4-alpine
 
-RUN apt update && apt install -y ffmpeg
-
-COPY . /app
 WORKDIR /app
+COPY . .
 
+# Instala Python e dependências
+RUN apk add --no-cache python3 py3-pip && pip3 install requests
+
+# Dá permissão ao script
 RUN chmod +x start.sh
 
-CMD ["bash", "start.sh"]
+CMD ["sh", "start.sh"]
