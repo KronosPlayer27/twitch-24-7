@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
-# Transmitir vídeo em loop para a Twitch
-ffmpeg -re -stream_loop -1 -i video.mp4 \
-  -c:v libx264 -preset veryfast -b:v 2500k \
-  -c:a aac -b:a 160k -f flv \
+ffmpeg -loglevel quiet -re -stream_loop -1 -i video.mp4 \
+  -vf scale=854:480 \
+  -c:v libx264 -preset superfast -b:v 1000k \
+  -c:a aac -b:a 128k -f flv \
   rtmp://live.twitch.tv/app/$KEY
